@@ -1,0 +1,24 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Dados armazenados</h2>
+
+<ul>
+{% for doc in data %}
+    <li>
+    Id: {{ doc.keys() | list | first }}
+    <ul>
+        {% for key, value in (doc.values() | list | first).items() %}
+            <li>{{ key }}: {{ value }}</li>
+        {% endfor %}
+    </ul>
+    </li>
+{% endfor %}
+</ul>
+
+</body>
+</html>
+
+{% endblock %}
