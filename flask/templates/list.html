@@ -19,11 +19,11 @@
             {% endif %}
         {% endfor %}
     </ul>
+    {% if plots[doc.keys() | list | first] %}
+        <div>{{ plots[doc.keys() | list | first]|safe }}</div>
+    {% endif %}
     </li>
 {% endfor %}
 </ul>
-
-</body>
-</html>
 
 {% endblock %}
