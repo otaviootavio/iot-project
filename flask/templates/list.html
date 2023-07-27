@@ -2,28 +2,32 @@
 
 {% block content %}
 
-<h2>Dados armazenados</h2>
+<h2 class="mb-4">Dados armazenados</h2>
 
-<ul>
+<div class="row">
 {% for doc in data %}
-    <li>
-    <h3>Device ID: {{ doc.keys() | list | first }}</h3>
-    <ul>
-        {% for key, value in (doc.values() | list | first).items() %}
-            {% if key == 'last_updated' %}
-                <li><strong>{{ key }}:</strong> {{ value.strftime('%Y-%m-%d %H:%M:%S') }}</li>
-            {% elif key in ['temperature', 'air_humidity', 'soil_humidity'] %}
-                <li><strong>{{ key }}:</strong> {{ value | round(2) }}</li>
-            {% else %}
-                <li><strong>{{ key }}:</strong> {{ value }}</li>
-            {% endif %}
-        {% endfor %}
-    </ul>
-    {% if plots[doc.keys() | list | first] %}
-        <div>{{ plots[doc.keys() | list | first]|safe }}</div>
-    {% endif %}
-    </li>
+    <div class="col-md-10">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h3 class="card-title">Device ID: {{ doc.keys() | list | first }}</h3>
+                <ul class="list-unstyled">
+                    {% for key, value in (doc.values() | list | first).items() %}
+                        {% if key == 'last_updated' %}
+                            <li><strong>{{ key }}:</strong> {{ value.strftime('%Y-%m-%d %H:%M:%S') }}</li>
+                        {% elif key in ['temperature', 'air_humidity', 'soil_humidity'] %}
+                            <li><strong>{{ key }}:</strong> {{ value | round(2) }}</li>
+                        {% else %}
+                            <li><strong>{{ key }}:</strong> {{ value }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+                {% if plots[doc.keys() | list | first] %}
+                    <div>{{ plots[doc.keys() | list | first]|safe }}</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 {% endfor %}
-</ul>
+</div>
 
 {% endblock %}
