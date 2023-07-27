@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template
 import firebase_admin
 from firebase_admin import credentials, firestore
+import os
 
 # Use a service account.
 cred = credentials.Certificate('serviceAccount.json')
@@ -28,4 +29,4 @@ def list_data():
     return render_template('list.html', data=data)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
