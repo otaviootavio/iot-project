@@ -1,4 +1,3 @@
-
 {% extends 'base.html' %}
 
 {% block content %}
@@ -8,10 +7,16 @@
 <ul>
 {% for doc in data %}
     <li>
-    Id: {{ doc.keys() | list | first }}
+    <h3>Device ID: {{ doc.keys() | list | first }}</h3>
     <ul>
         {% for key, value in (doc.values() | list | first).items() %}
-            <li>{{ key }}: {{ value }}</li>
+            {% if key == 'last_updated' %}
+                <li><strong>{{ key }}:</strong> {{ value.strftime('%Y-%m-%d %H:%M:%S') }}</li>
+            {% elif key in ['temperature', 'air_humidity', 'soil_humidity'] %}
+                <li><strong>{{ key }}:</strong> {{ value | round(2) }}</li>
+            {% else %}
+                <li><strong>{{ key }}:</strong> {{ value }}</li>
+            {% endif %}
         {% endfor %}
     </ul>
     </li>
